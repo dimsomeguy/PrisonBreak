@@ -47,7 +47,10 @@ public class MovementPath : MonoBehaviour {
     {
         //does the object have a seq
         if (PathSeq == null || PathSeq.Length < 1)
+        {
+            Debug.Log("length check failed");
             yield break;
+        }
         //if not or it is a stachatory position return
 
 
@@ -62,24 +65,32 @@ public class MovementPath : MonoBehaviour {
 
             if (type == PathTypes.linear)
             {
+                //if we are at the biginig 
                 if (movingTo <= 0)
-                    movementDirection = 1;
-                else if (movingTo >= PathSeq.Length - 1)
-                    movementDirection = -1;
-                
-                movingTo = movingTo + movementDirection;
-
-                if (type == PathTypes.loop)
                 {
-                    if (movingTo >= PathSeq.Length)
-                        movingTo = 0;
-                    
-                    if (movingTo < 0)
-                        movingTo = PathSeq.Length - 1;
-                    
+                    //move forward 
+                    movementDirection = 1;
+                }
+                else if (movingTo >= PathSeq.Length - 1)
+                {
+                    //if we are at the end reverse direction 
+                    movementDirection = -1;
+                   
                 }
             }
+            //movement Direction should be ether 1 or -1 
+            //add direction to the index to move us to the next point in out path
+            movingTo = movingTo + movementDirection;
+
+
+            if (type == PathTypes.loop)
+            {
+                if (movingTo >= PathSeq.Length)
+                    movingTo = 0;
+
+                if (movingTo < 0)
+                    movingTo = PathSeq.Length - 1;
+            }          
         } 
     }
-
 }

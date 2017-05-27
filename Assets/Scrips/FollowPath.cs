@@ -30,7 +30,7 @@ public class FollowPath : MonoBehaviour {
 
         if (PointInPath.Current == null)
         {
-            Debug.LogError("A Path must ahve points in it to follow", gameObject);
+            Debug.LogError("A Path must have points in it to follow", gameObject);
             return;
         }
 
@@ -40,11 +40,14 @@ public class FollowPath : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        //if path is emepty or there is no path point return 
         if (PointInPath == null || PointInPath.Current == null)
         {
+            Debug.LogError("there is no point to follow", gameObject);
             return;
         }
 
+        
         if (Type == MovementType.MoveTowards)
         {
             transform.position = Vector3.MoveTowards(transform.position, PointInPath.Current.position, Time.deltaTime * Speed);
@@ -54,8 +57,10 @@ public class FollowPath : MonoBehaviour {
             transform.position = Vector3.Lerp(transform.position, PointInPath.Current.position, Time.deltaTime * Speed);
         }
 
+        
         float distence = (transform.position - PointInPath.Current.position).sqrMagnitude;
 
+        Debug.Log("current pos: " + transform.position  + "next position" + PointInPath.Current.position);
         if (distence < MaxDistenceToGoal * MaxDistenceToGoal)
         {
             PointInPath.MoveNext();

@@ -106,6 +106,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             GameObject.FindGameObjectWithTag("StaminiaBar").GetComponent<Slider>().value = m_Stamina; 
             // always move along the camera forward as it is the direction that it being aimed at
             Vector3 desiredMove = transform.forward*m_Input.y + transform.right*m_Input.x;
+
+            //Debug.Log(desiredMove +  "  Speed:  " + speed  + "is grounded?: " + m_CharacterController.isGrounded);
             
             // get a normal for the surface that is being touched to move along it
             RaycastHit hitInfo;
@@ -152,7 +154,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (IsLow)
             {
                 LowEn = true;
-                Debug.Log("speed change");
+                //Debug.Log("speed change");
                 m_WalkSpeed = 2f;
                 m_RunSpeed = 3.4f;
                 m_JumpSpeed = 3f;
@@ -160,7 +162,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             else if (IsLow == false)
             {
                 LowEn = false;
-                Debug.Log("speed change");
+                //Debug.Log("speed change");
                 m_WalkSpeed = 3.5f;
                 m_RunSpeed = 7f;
                 m_JumpSpeed = 5f;
